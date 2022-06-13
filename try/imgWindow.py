@@ -3,7 +3,7 @@ import math
 import os, sys
 from collections import namedtuple
 
-from PyQt5 import uic #, QtWidgets 
+from PyQt5 import uic, QtCore #, QtWidgets 
 from PyQt5.QtCore import QAbstractTableModel, Qt, QSize
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QStyledItemDelegate
@@ -87,8 +87,9 @@ class PreviewModel(QAbstractTableModel):
 
 
 class ImageWindow(QMainWindow):
-    def __init__(self, folder):
+    def __init__(self, parent, folder, kind):
         super().__init__()
+        self.up = parent
         self.folder = folder
         uic.loadUi('imgWindow.ui', self) # Load the .ui file
         self.setWindowTitle(self.folder)
@@ -117,10 +118,22 @@ class ImageWindow(QMainWindow):
         self.tview.clicked.connect(self.imgClicked)
         self.loadFiles()
 
+        # Variation
+        if kind == 1:
+            self.bMarkA.hide()
+            self.bMarkB.hide()
+            self.bSrcFile.clicked.connect(self.setSrcFile)
+
+    def setSrcFile(self):
+        if self.clickFile:
+            self.up.srcFile = self.clickFile
+            self.up.tSrcFile.setText(f"Source File = {self.clickFile}")
+
     def imgClicked(self, index):
         offset = index.row() * self.cols + index.column()
         self.clickPos = self.imgOffset.value() + offset
         data = self.model.previews[offset]
+        self.clickFile = data.title
         sizeText = f"Image Size: ({data.image.width()}, {data.image.height()})"
         posText = f"Clicked: {self.clickPos}"
         self.info.setText(sizeText+"  "+posText)

@@ -140,6 +140,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="bSrcFile">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Set Src File</string>
            </property>
@@ -147,6 +153,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="bMarkA">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Set MarkA</string>
            </property>
@@ -154,6 +166,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="bMarkB">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Set MarkB</string>
            </property>

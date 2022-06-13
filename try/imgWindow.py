@@ -48,9 +48,12 @@ class PreviewDelegate(QStyledItemDelegate):
         
     def sizeHint(self, option, index):
         # All items the same size.
+        data = index.model().data(index, Qt.DisplayRole)
+        if data is None:
+            return QSize(0,0)
+        dataImg = data.image
         w = int(0.95*self.width/self.cols)
-        h = int(w*1080/1920)
-
+        h = int(w*dataImg.height()/dataImg.width())
         return QSize(w, h)
 
 
@@ -119,10 +122,30 @@ class ImageWindow(QMainWindow):
         self.loadFiles()
 
         # Variation
-        if kind == 1:
+        if kind == 1: # Src
             self.bMarkA.hide()
             self.bMarkB.hide()
             self.bSrcFile.clicked.connect(self.setSrcFile)
+        if kind == 2: # Drive
+            self.bSrcFile.hide()
+            self.bMarkA.clicked.connect(self.setMarkA)
+            self.bMarkB.clicked.connect(self.setMarkB)
+        if kind == 3:
+            self.bSrcFile.hide()
+            self.bMarkA.hide()
+            self.bMarkB.hide()
+
+    def setMarkA(self):
+        if self.clickFile:
+            markFile = os.path.basename(self.clickFile)
+            self.up.markA = markFile
+            self.up.tMarkA.setText(f"MarkA = {markFile}")
+
+    def setMarkB(self):
+        if self.clickFile:
+            markFile = os.path.basename(self.clickFile)
+            self.up.markB = markFile
+            self.up.tMarkB.setText(f"MarkB = {markFile}")
 
     def setSrcFile(self):
         if self.clickFile:
@@ -131,12 +154,13 @@ class ImageWindow(QMainWindow):
 
     def imgClicked(self, index):
         offset = index.row() * self.cols + index.column()
-        self.clickPos = self.imgOffset.value() + offset
-        data = self.model.previews[offset]
-        self.clickFile = data.title
-        sizeText = f"Image Size: ({data.image.width()}, {data.image.height()})"
-        posText = f"Clicked: {self.clickPos}"
-        self.info.setText(sizeText+"  "+posText)
+        if offset < len(self.model.previews):
+            self.clickPos = self.imgOffset.value() + offset
+            data = self.model.previews[offset]
+            self.clickFile = data.title
+            sizeText = f"Image Size: ({data.image.width()}, {data.image.height()})"
+            posText = f"Clicked: {self.clickPos}"
+            self.info.setText(sizeText+"  "+posText)
 
     def loadFiles(self):
         self.files = glob.glob(f"{self.folder}/*.jpg")

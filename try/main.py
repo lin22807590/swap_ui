@@ -10,7 +10,7 @@ from imgWindow import ImageWindow
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main2.ui', self) # Load the .ui file
+        uic.loadUi('main5.ui', self) # Load the .ui file
         self.setWindowTitle("Head Swap")
         self.bSrcFolder.clicked.connect(self.openSrcFolder)
         self.bDriveFolder.clicked.connect(self.openDriveFolder)

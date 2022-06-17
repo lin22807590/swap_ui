@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
-    <height>933</height>
+    <width>968</width>
+    <height>829</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,12 +70,10 @@
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #E9EDC9
-
-</string>
+           <string notr="true">background-color: #E9EDC9; ; border: 0;</string>
           </property>
           <property name="title">
-           <string>Set Source Folder and Driving Video </string>
+           <string>     Set Source Folder and Driving Video </string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
@@ -98,6 +96,9 @@
                <width>781</width>
                <height>51</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
@@ -169,7 +170,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: #FAEDCD</string>
+              <string notr="true">background-color: #FAEDCD; border: 0;</string>
              </property>
              <property name="title">
               <string/>
@@ -193,10 +194,10 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px</string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: red;</string>
               </property>
               <property name="text">
-               <string>Source Folder = </string>
+               <string>Source Folder</string>
               </property>
               <property name="margin">
                <number>0</number>
@@ -211,11 +212,27 @@
                 <height>30</height>
                </rect>
               </property>
+              <property name="styleSheet">
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; </string>
+              </property>
               <property name="text">
-               <string>TextLabel</string>
+               <string/>
               </property>
              </widget>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_30">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_3">
@@ -226,7 +243,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: #FAEDCD</string>
+              <string notr="true">background-color: #FAEDCD; border: 0;</string>
              </property>
              <property name="title">
               <string/>
@@ -239,6 +256,9 @@
                 <width>128</width>
                 <height>30</height>
                </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #333D29;</string>
               </property>
               <property name="text">
                <string>Driving Folder =</string>
@@ -253,8 +273,11 @@
                 <height>30</height>
                </rect>
               </property>
+              <property name="styleSheet">
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; </string>
+              </property>
               <property name="text">
-               <string>TextLabel</string>
+               <string/>
               </property>
              </widget>
             </widget>
@@ -308,7 +331,7 @@
 </string>
           </property>
           <property name="title">
-           <string>Set Source File and Drive Mark</string>
+           <string>     Set Source File and Drive Mark</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
@@ -326,6 +349,9 @@
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox">
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QPushButton" name="bSetSource">
@@ -400,7 +426,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: #FAEDCD</string>
+              <string notr="true">background-color: #FAEDCD; border: 0;</string>
              </property>
              <property name="title">
               <string/>
@@ -421,10 +447,10 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px;  margin-bottom: 8px</string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #333D29;</string>
               </property>
               <property name="text">
-               <string>Source File =</string>
+               <string>Source File</string>
               </property>
              </widget>
              <widget class="QLabel" name="label_7">
@@ -436,11 +462,27 @@
                 <height>30</height>
                </rect>
               </property>
+              <property name="styleSheet">
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; </string>
+              </property>
               <property name="text">
-               <string>TextLabel</string>
+               <string/>
               </property>
              </widget>
             </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_31">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox">
@@ -451,7 +493,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: #FAEDCD</string>
+              <string notr="true">background-color: #FAEDCD; border: 0;</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item>
@@ -527,9 +569,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #E9EDC9
-
-</string>
+           <string notr="true">background-color: #E9EDC9; border: 0;</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
@@ -627,9 +667,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #E9EDC9
-
-</string>
+           <string notr="true">background-color: #E9EDC9; border: 0;</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
@@ -882,7 +920,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QGroupBox" name="">
+            <widget class="QGroupBox" name="groupBox">
              <property name="minimumSize">
               <size>
                <width>802</width>
@@ -1065,7 +1103,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QGroupBox" name="">
+            <widget class="QGroupBox" name="groupBox">
              <property name="minimumSize">
               <size>
                <width>802</width>
@@ -1679,17 +1717,35 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>979</width>
-     <height>21</height>
+     <width>968</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">
     <property name="title">
      <string>file</string>
     </property>
+    <addaction name="action_Open"/>
+    <addaction name="action_Save"/>
+    <addaction name="actionSave_As"/>
    </widget>
    <addaction name="menufile"/>
   </widget>
+  <action name="action_Open">
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save &amp;As</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

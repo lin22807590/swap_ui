@@ -232,6 +232,6 @@ class ImageWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window1 = ImageWindow(IMAGEFILESPATH)
+    window1 = ImageWindow(None, IMAGEFILESPATH, 3)
     window1.show()
     app.exec_()

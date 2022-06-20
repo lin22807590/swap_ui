@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>829</height>
+    <width>974</width>
+    <height>961</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
        <string notr="true">background-color: #CCD5AE;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabFirst">
        <attribute name="title">
@@ -80,6 +80,9 @@
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -153,6 +156,9 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
@@ -194,7 +200,7 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: red;</string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color:red;</string>
               </property>
               <property name="text">
                <string>Source Folder</string>
@@ -213,7 +219,7 @@
                </rect>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px; </string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #d00000;</string>
               </property>
               <property name="text">
                <string/>
@@ -225,6 +231,9 @@
             <spacer name="verticalSpacer_30">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -258,10 +267,10 @@
                </rect>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #333D29;</string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: red;</string>
               </property>
               <property name="text">
-               <string>Driving Folder =</string>
+               <string>Driving Folder</string>
               </property>
              </widget>
              <widget class="QLabel" name="label_6">
@@ -274,7 +283,7 @@
                </rect>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px; </string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #d00000;</string>
               </property>
               <property name="text">
                <string/>
@@ -286,6 +295,9 @@
             <spacer name="verticalSpacer_4">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -303,10 +315,13 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>31</height>
+            <height>12</height>
            </size>
           </property>
          </spacer>
@@ -339,10 +354,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>38</height>
+               <height>40</height>
               </size>
              </property>
             </spacer>
@@ -409,10 +427,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>16</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -447,7 +468,7 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-top: 10px; margin-bottom: 8px; color: #333D29;</string>
+               <string notr="true">margin-top: 10px; margin-bottom: 8px;color: red;</string>
               </property>
               <property name="text">
                <string>Source File</string>
@@ -475,6 +496,9 @@
             <spacer name="verticalSpacer_31">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -505,7 +529,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true"/>
+                 <string notr="true">color: red;</string>
                 </property>
                 <property name="text">
                  <string>Mark A =</string>
@@ -521,7 +545,7 @@
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true"/>
+                 <string notr="true">color: red;</string>
                 </property>
                 <property name="text">
                  <string>Mark B =</string>
@@ -536,10 +560,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>17</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -552,10 +579,13 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>30</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -574,6 +604,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QCheckBox" name="cRelative">
+             <property name="styleSheet">
+              <string notr="true">color:red;</string>
+             </property>
              <property name="text">
               <string>Relative</string>
              </property>
@@ -584,6 +617,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="cAdapt">
+             <property name="styleSheet">
+              <string notr="true">color:red;</string>
+             </property>
              <property name="text">
               <string>Adapt Scale</string>
              </property>
@@ -591,6 +627,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="cFlip">
+             <property name="styleSheet">
+              <string notr="true">color:red;</string>
+             </property>
              <property name="text">
               <string>Flip</string>
              </property>
@@ -598,6 +637,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="cFindBest">
+             <property name="styleSheet">
+              <string notr="true">color:red;</string>
+             </property>
              <property name="text">
               <string>Find Best Frame</string>
              </property>
@@ -628,7 +670,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">color: blue; margin-right: 0; padding-right: 0;</string>
+              <string notr="true">color:red; margin-right: 0; padding-right: 0;</string>
              </property>
              <property name="text">
               <string>Best Frame</string>
@@ -650,10 +692,13 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>16</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -711,7 +756,7 @@
        <attribute name="title">
         <string>GPEN</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
          <widget class="QLabel" name="label_3">
           <property name="minimumSize">
@@ -744,7 +789,7 @@
           <property name="minimumSize">
            <size>
             <width>850</width>
-            <height>200</height>
+            <height>232</height>
            </size>
           </property>
           <property name="font">
@@ -759,7 +804,7 @@
 </string>
           </property>
           <property name="title">
-           <string>Auto Setting</string>
+           <string>     Auto Setting</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
@@ -767,10 +812,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>31</height>
+               <height>30</height>
               </size>
              </property>
             </spacer>
@@ -783,7 +831,10 @@
                <height>52</height>
               </size>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_16">
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
                <widget class="QPushButton" name="bSrcFolder_5">
                 <property name="sizePolicy">
@@ -814,6 +865,9 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
@@ -839,15 +893,55 @@
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
                <widget class="QLabel" name="label_9">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
-                 <string>Output Folder =</string>
+                 <string>Output Folder </string>
                 </property>
                </widget>
               </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_22">
+             <property name="minimumSize">
+              <size>
+               <width>802</width>
+               <height>33</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #FAEDCD</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_18">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
-                 <string>Source Folder =</string>
+                 <string>Source Folder </string>
                 </property>
                </widget>
               </item>
@@ -858,6 +952,9 @@
             <spacer name="verticalSpacer_10">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -871,14 +968,17 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_7">
+         <spacer name="verticalSpacer_21">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>32</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -903,7 +1003,7 @@
 </string>
           </property>
           <property name="title">
-           <string>Manual setting</string>
+           <string>     Manual setting</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
@@ -911,10 +1011,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>28</height>
+               <height>30</height>
               </size>
              </property>
             </spacer>
@@ -926,6 +1029,9 @@
                <width>802</width>
                <height>52</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
@@ -980,10 +1086,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>28</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1005,15 +1114,55 @@
              <layout class="QHBoxLayout" name="horizontalLayout_13">
               <item>
                <widget class="QLabel" name="label_10">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
-                 <string>Output Folder =</string>
+                 <string>Output Folder </string>
                 </property>
                </widget>
               </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_32">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_23">
+             <property name="minimumSize">
+              <size>
+               <width>802</width>
+               <height>33</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #FAEDCD</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
               <item>
-               <widget class="QLabel" name="label_11">
+               <widget class="QLabel" name="label_19">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
-                 <string>Source Folder =</string>
+                 <string>Source Folder </string>
                 </property>
                </widget>
               </item>
@@ -1025,10 +1174,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>28</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1040,6 +1192,9 @@
                <width>802</width>
                <height>52</height>
               </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_9">
               <item>
@@ -1094,10 +1249,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>28</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1116,6 +1274,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
                <widget class="QLabel" name="tGPENMarkA">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
                  <string>Mark A =</string>
                 </property>
@@ -1123,6 +1284,9 @@
               </item>
               <item>
                <widget class="QLabel" name="tMarkGPENB">
+                <property name="styleSheet">
+                 <string notr="true">color:#304d7d;</string>
+                </property>
                 <property name="text">
                  <string>Mark B =</string>
                 </property>
@@ -1136,10 +1300,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>28</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1148,14 +1315,17 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_21">
+         <spacer name="verticalSpacer_33">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>32</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -1169,9 +1339,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #E9EDC9
-
-</string>
+           <string notr="true">background-color: #E9EDC9;border: 0;</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_14">
            <item>
@@ -1215,7 +1383,7 @@
        <attribute name="title">
         <string>Google Interpolation</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_10">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
          <widget class="QLabel" name="label_4">
           <property name="font">
@@ -1242,7 +1410,7 @@
           <property name="minimumSize">
            <size>
             <width>850</width>
-            <height>200</height>
+            <height>232</height>
            </size>
           </property>
           <property name="font">
@@ -1257,7 +1425,7 @@
 </string>
           </property>
           <property name="title">
-           <string>Auto Setting</string>
+           <string>     Auto Setting</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
@@ -1265,10 +1433,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>29</height>
+               <height>30</height>
               </size>
              </property>
             </spacer>
@@ -1281,7 +1452,10 @@
                <height>52</height>
               </size>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_17">
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
               <item>
                <widget class="QPushButton" name="bSrcFolder_6">
                 <property name="sizePolicy">
@@ -1312,10 +1486,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>12</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1336,16 +1513,12 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_15">
               <item>
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>Output Folder =</string>
+               <widget class="QLabel" name="label_11">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
                 </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_13">
                 <property name="text">
-                 <string>Source Folder =</string>
+                 <string>Output Folder </string>
                 </property>
                </widget>
               </item>
@@ -1357,10 +1530,57 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>12</height>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_24">
+             <property name="minimumSize">
+              <size>
+               <width>802</width>
+               <height>33</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #FAEDCD</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_17">
+              <item>
+               <widget class="QLabel" name="label_20">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
+                </property>
+                <property name="text">
+                 <string>Source Folder </string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_34">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1373,10 +1593,13 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>48</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -1397,10 +1620,11 @@
           </property>
           <property name="styleSheet">
            <string notr="true">background-color: #E9EDC9
+
 </string>
           </property>
           <property name="title">
-           <string>Manual setting</string>
+           <string>     Manual setting</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
@@ -1408,10 +1632,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>24</height>
+               <height>30</height>
               </size>
              </property>
             </spacer>
@@ -1424,9 +1651,12 @@
                <height>52</height>
               </size>
              </property>
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_11">
               <item>
-               <widget class="QPushButton" name="bSrcFolder_7">
+               <widget class="QPushButton" name="bSrcFolder_3">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1448,7 +1678,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="bOutputFolder_5">
+               <widget class="QPushButton" name="bOutputFolder_3">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1477,10 +1707,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>23</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1501,16 +1734,56 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_18">
               <item>
-               <widget class="QLabel" name="label_14">
+               <widget class="QLabel" name="label_12">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
+                </property>
                 <property name="text">
-                 <string>Output Folder =</string>
+                 <string>Output Folder </string>
                 </property>
                </widget>
               </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_35">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>13</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_25">
+             <property name="minimumSize">
+              <size>
+               <width>802</width>
+               <height>33</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: #FAEDCD</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_19">
               <item>
-               <widget class="QLabel" name="label_15">
+               <widget class="QLabel" name="label_21">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
+                </property>
                 <property name="text">
-                 <string>Source Folder =</string>
+                 <string>Source Folder </string>
                 </property>
                </widget>
               </item>
@@ -1522,10 +1795,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>24</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1538,9 +1814,12 @@
                <height>52</height>
               </size>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_19">
+             <property name="styleSheet">
+              <string notr="true">border: 0;</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_20">
               <item>
-               <widget class="QPushButton" name="bSrcFolder_8">
+               <widget class="QPushButton" name="bSrcFolder_7">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1562,7 +1841,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="bOutputFolder_6">
+               <widget class="QPushButton" name="bOutputFolder_5">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                   <horstretch>0</horstretch>
@@ -1591,10 +1870,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>23</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1610,9 +1892,12 @@
              <property name="styleSheet">
               <string notr="true">background-color: #FAEDCD</string>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_20">
+             <layout class="QHBoxLayout" name="horizontalLayout_22">
               <item>
                <widget class="QLabel" name="tGPENMarkA_2">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
+                </property>
                 <property name="text">
                  <string>Mark A =</string>
                 </property>
@@ -1620,6 +1905,9 @@
               </item>
               <item>
                <widget class="QLabel" name="tMarkGPENB_2">
+                <property name="styleSheet">
+                 <string notr="true">color:#155d27;</string>
+                </property>
                 <property name="text">
                  <string>Mark B =</string>
                 </property>
@@ -1633,10 +1921,13 @@
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>24</height>
+               <height>13</height>
               </size>
              </property>
             </spacer>
@@ -1649,10 +1940,13 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>47</height>
+            <height>13</height>
            </size>
           </property>
          </spacer>
@@ -1666,8 +1960,7 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #E9EDC9
-</string>
+           <string notr="true">background-color: #E9EDC9;border: 0;</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_21">
            <item>
@@ -1717,8 +2010,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>968</width>
-     <height>22</height>
+     <width>974</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">

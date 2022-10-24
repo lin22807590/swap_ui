@@ -1,5 +1,7 @@
-import sys, re, os
-from PyQt5 import uic #, QtWidgets 
+import sys
+import re
+import os
+from PyQt5 import uic  # , QtWidgets
 from PyQt5.QtCore import QAbstractTableModel, Qt, QSize
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QStyledItemDelegate
@@ -7,10 +9,11 @@ from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QListWidgetItem, QMessageBox, QStatusBar
 from imgWindow import ImageWindow
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main4.ui', self) # Load the .ui file
+        uic.loadUi('main4.ui', self)  # Load the .ui file
         self.setWindowTitle("Head Swap")
         self.bSrcFolder.clicked.connect(self.openSrcFolder)
         self.bDriveFolder.clicked.connect(self.openDriveFolder)
@@ -24,69 +27,80 @@ class MainWindow(QMainWindow):
         self.result = None
 
     def runFirst(self):
+        if (not hasattr(self, 'srcFile')) or self.srcFile == '':
+            return
+        if (not hasattr(self, 'driveFolder')) or self.driveFolder == '':
+            return
         cmdstr = f"fpFirstOrderDir.py --source_image {self.srcFile}"
         cmdstr += f" --driving_dir {self.driveFolder}"
         cmdstr += f" --output_dir ./tempoutput"
         if self.cRelative.isChecked():
             cmdstr += " --relative"
 
-        if self.cFindBest.isChecked():
+        if self.cFlip.isChecked():
+            cmdstr += " --flip"
+
+        if self.eBestFrame.text() != "":
+            cmdstr += f" --best_frame {self.eBestFrame.text()}"
+        elif self.cFindBest.isChecked():
             cmdstr += f" --find_best_frame"
 
         restr = f".*?(\d+).*"
-        ss = re.match(restr, self.markA)
-        if ss:
-            cmdstr += f" --start {ss.group(1)}"
-        ss = re.match(restr, self.markB)
-        if ss:
-            cmdstr += f" --end {ss.group(1)}"
+        if hasattr(self, 'markA'):
+            ss = re.match(restr, self.markA)
+            if ss:
+                cmdstr += f" --start {ss.group(1)}"
+        if hasattr(self, 'markB'):
+            ss = re.match(restr, self.markB)
+            if ss:
+                cmdstr += f" --end {ss.group(1)}"
         os.system(cmdstr)
         if self.result:
             self.result.close()
         self.result = ImageWindow(self, "./tempoutput", 3)
         self.result.show()
 
-
     def setDriveMarkA(self):
-        if self.drive and self.drive.clickFile:
+        if hasattr(self, 'drive') and hasattr(self.drive, 'clickFile'):
             markFile = os.path.basename(self.drive.clickFile)
             self.markA = markFile
             self.tMarkA.setText(f"MarkA = {markFile}")
 
     def setDriveMarkB(self):
-        if self.drive and self.drive.clickFile:
+        if hasattr(self, 'drive') and hasattr(self.drive, 'clickFile'):
             markFile = os.path.basename(self.drive.clickFile)
             self.markB = markFile
             self.tMarkB.setText(f"MarkB = {markFile}")
 
     def setSourceFile(self):
-        if self.src and self.src.clickFile:
+        if hasattr(self, "src") and hasattr(self.src, 'clickFile'):
             self.srcFile = self.src.clickFile
             self.tSrcFile.setText(f"Source File = {self.srcFile}")
 
     def openSrcFolder(self):
         dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-            ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+                                               ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if dir is None or dir == "":
             return
         if self.src:
             self.src.close()
         self.srcFolder = dir
-        self.tSrcFolder.setText(f"Source Folder = {dir}")
+        self.tSrcFolder.setText(dir)
         self.src = ImageWindow(self, self.srcFolder, 1)
         self.src.show()
 
     def openDriveFolder(self):
         dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-            ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+                                               ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if dir is None or dir == "":
             return
         if self.drive:
             self.drive.close()
         self.driveFolder = dir
-        self.tDriveFolder.setText(f"Driving Folder = {dir}")
+        self.tDriveFolder.setText(dir)
         self.drive = ImageWindow(self, self.driveFolder, 2)
         self.drive.show()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

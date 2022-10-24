@@ -24,7 +24,7 @@
        <string notr="true">background-color: #CCD5AE;</string>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabFirst">
        <attribute name="title">
@@ -181,7 +181,7 @@
              <property name="title">
               <string/>
              </property>
-             <widget class="QLabel" name="tSrcFolder">
+             <widget class="QLabel" name="tSrcFolderLabel">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -209,7 +209,7 @@
                <number>0</number>
               </property>
              </widget>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="tSrcFolder">
               <property name="geometry">
                <rect>
                 <x>180</x>
@@ -257,7 +257,7 @@
              <property name="title">
               <string/>
              </property>
-             <widget class="QLabel" name="tDriveFolder">
+             <widget class="QLabel" name="tDriveFolderLabel">
               <property name="geometry">
                <rect>
                 <x>24</x>
@@ -273,7 +273,7 @@
                <string>Driving Folder</string>
               </property>
              </widget>
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="tDriveFolder">
               <property name="geometry">
                <rect>
                 <x>180</x>
@@ -452,7 +452,7 @@
              <property name="title">
               <string/>
              </property>
-             <widget class="QLabel" name="tSrcFile">
+             <widget class="QLabel" name="tSrcFileLabel">
               <property name="geometry">
                <rect>
                 <x>24</x>
@@ -474,7 +474,7 @@
                <string>Source File</string>
               </property>
              </widget>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="tSrcFile">
               <property name="geometry">
                <rect>
                 <x>180</x>
@@ -680,7 +680,7 @@
            <item>
             <widget class="QLineEdit" name="eBestFrame">
              <property name="styleSheet">
-              <string notr="true">padding-left:0; margin-left:0</string>
+              <string notr="true">padding-left:0; margin-left:0; background: lightgreen;</string>
              </property>
             </widget>
            </item>
@@ -2011,7 +2011,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>25</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">

@@ -156,7 +156,7 @@ class ImageWindow(QMainWindow):
             if numa > 0 and numb > 0:
                 if self.bInterNum.text() != '' and self.bInterNum.text() != '0':
                     numb = numa + int(self.bInterNum.text())
-                cmdstr = f"../../FaceTool/fpInterpolation.py -a {self.markA} -b {self.markB}"
+                cmdstr = f"../../FaceTool/fpInterpolationVlc.py -a {self.markA} -b {self.markB}"
                 cmdstr += f" -s {numa} -e {numb}"
                 cmdstr += f" -o ./tempinter"
                 try:

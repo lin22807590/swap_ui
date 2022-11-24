@@ -9,7 +9,7 @@ from PyQt5 import uic, QtCore  # , QtWidgets
 from PyQt5.QtCore import QAbstractTableModel, Qt, QSize
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QStyledItemDelegate
-from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QFileDialog
 # Create a custom namedtuple class to hold our data.
 preview = namedtuple("preview", "id title image")
 
@@ -97,6 +97,14 @@ class PreviewModel(QAbstractTableModel):
         # n_items = len(self.previews)
         # return math.ceil(n_items / self.cols)
 
+class MyTableView(QTableView):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent = parent
+    def horizontalScrollbarValueChanged(self, value):
+        data = self.parent.model.previews[value]
+        self.parent.info.setText(f"{os.path.basename(data.title)}")
+
 
 class ImageWindow(QMainWindow):
     def __init__(self, parent, folder, kind):
@@ -106,7 +114,7 @@ class ImageWindow(QMainWindow):
         uic.loadUi('imgWindow.ui', self)  # Load the .ui file
         self.setWindowTitle(self.folder)
         self.cols = 30
-        self.tview = QTableView()
+        self.tview = MyTableView(self)
         self.tview.horizontalHeader().hide()
         self.tview.verticalHeader().hide()
         self.tview.setGridStyle(Qt.NoPen)
@@ -132,6 +140,7 @@ class ImageWindow(QMainWindow):
         self.bMarkB.clicked.connect(self.setMarkB)
         self.bInterpolate.clicked.connect(self.interpolation)
         self.tview.clicked.connect(self.imgClicked)
+        self.bCopy.clicked.connect(self.copy)
         self.loadFiles()
 
         # Variation
@@ -142,6 +151,19 @@ class ImageWindow(QMainWindow):
             self.bSrcFile.hide()
         if kind == 3:
             self.bSrcFile.hide()
+
+    def copy(self):
+        selidxs = self.tview.selectedIndexes()
+        if len(selidxs) > 0:
+            dir = QFileDialog.getExistingDirectory(self, "Open Directory",
+                ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+            if dir is None or dir == "":
+                return
+            for index in self.tview.selectedIndexes():
+                idx = index.column()
+                tfile = self.model.previews[idx].title
+                nfile = os.path.join(dir, os.path.basename(tfile))
+                os.system(f"cp {tfile} {nfile}")
 
     def interpolation(self):
         if hasattr(self, 'markA') and hasattr(self, 'markA'):

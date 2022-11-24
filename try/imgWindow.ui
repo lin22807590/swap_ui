@@ -106,6 +106,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="bCopy">
+           <property name="text">
+            <string>Copy</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="bFlip">
            <property name="text">
             <string>Flip</string>

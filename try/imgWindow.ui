@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
-    <height>594</height>
+    <width>1079</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -113,9 +113,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bFlip">
+          <widget class="QPushButton" name="bHFlip">
            <property name="text">
-            <string>Flip</string>
+            <string>HFlip</string>
            </property>
           </widget>
          </item>
@@ -200,10 +200,28 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>950</width>
-     <height>28</height>
+     <width>1079</width>
+     <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Tool">
+    <property name="title">
+     <string>&amp;Tool</string>
+    </property>
+    <addaction name="action_Copy"/>
+    <addaction name="action_Delete"/>
+    <addaction name="action_HFlip"/>
+    <addaction name="action_GPen"/>
+    <addaction name="action_Resize"/>
+    <addaction name="action_Rotate"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Tool"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionOpen_Folder">
@@ -211,7 +229,86 @@
     <string>Open Folder</string>
    </property>
   </action>
+  <action name="action_Delete">
+   <property name="text">
+    <string>&amp;Delete</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+  </action>
+  <action name="action_HFlip">
+   <property name="text">
+    <string>&amp;HFlip</string>
+   </property>
+  </action>
+  <action name="action_GPen">
+   <property name="text">
+    <string>&amp;GPen</string>
+   </property>
+  </action>
+  <action name="action_Rotate">
+   <property name="text">
+    <string>ro&amp;Tate</string>
+   </property>
+  </action>
+  <action name="action_Resize">
+   <property name="text">
+    <string>&amp;Resize</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>action_Copy</sender>
+   <signal>triggered()</signal>
+   <receiver>bCopy</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>520</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_HFlip</sender>
+   <signal>triggered()</signal>
+   <receiver>bHFlip</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>648</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_GPen</sender>
+   <signal>triggered()</signal>
+   <receiver>bGPEN</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>776</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

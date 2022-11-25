@@ -6,10 +6,10 @@ import sys
 from collections import namedtuple
 
 from PyQt5 import uic, QtCore  # , QtWidgets
-from PyQt5.QtCore import QAbstractTableModel, Qt, QSize
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtCore import QAbstractTableModel, Qt, QSize, QModelIndex
+from PyQt5.QtGui import QImage, QPixmap, QTransform, QPainter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QStyledItemDelegate
-from PyQt5.QtWidgets import QVBoxLayout, QFileDialog
+from PyQt5.QtWidgets import QVBoxLayout, QFileDialog, QDialog
 # Create a custom namedtuple class to hold our data.
 preview = namedtuple("preview", "id title image")
 
@@ -17,6 +17,26 @@ IMAGEFILESPATH = "/home/mdisk/FaceProj/images/Wash/Wash-boy"
 #IMAGEFILESPATH = "imgs"
 CELL_PADDING = 2  # all sides
 
+class NewImage(QDialog):
+    def __init__(self, parent, filename):
+        super(NewImage, self).__init__()
+        self.parent = parent
+        self.filename = filename
+        uic.loadUi('newImage.ui', self)
+        self.pixmap = QPixmap(filename)
+        self.qimage.setPixmap(self.pixmap)
+        self.degree.valueChanged.connect(self.rotateImage)
+    def rotateImage(self, v):
+        transform = QTransform().rotate(v)
+        newpixmap = self.pixmap.transformed(transform)
+        xoffset = (newpixmap.width() - self.pixmap.width()) // 2
+        yoffset = (newpixmap.height() - self.pixmap.height()) // 2
+        rotated = newpixmap.copy(xoffset, yoffset, self.pixmap.width(), self.pixmap.height());
+        img = QImage(self.pixmap.size(), QImage.Format_RGB32) #width(), self.pixmap.height()) #
+        img.fill(0) # Set the red background
+        p = QPainter(self.pixmap.width(), self.pixmap.height())
+        p.drawImage(0, 0, rotated)
+        self.qimage.setPixmap(img)
 
 class PreviewDelegate(QStyledItemDelegate):
 
@@ -59,7 +79,7 @@ class PreviewDelegate(QStyledItemDelegate):
             return QSize(0, 0)
         dataImg = data.image
         # w*dataImg.height()/dataImg.width())
-        h = max(80, int(0.95*(self.height-120)))
+        h = max(80, int(0.95*(self.height-150)))
         # max(240, int(0.95*self.width/self.cols))
         w = h*dataImg.width()/dataImg.height()
         return QSize(w, h)
@@ -141,6 +161,10 @@ class ImageWindow(QMainWindow):
         self.bInterpolate.clicked.connect(self.interpolation)
         self.tview.clicked.connect(self.imgClicked)
         self.bCopy.clicked.connect(self.copy)
+        self.action_Delete.triggered.connect(self.deleteImages)
+        self.action_Resize.triggered.connect(self.resizeImages)
+        self.bHFlip.clicked.connect(self.hflip)
+        self.action_Rotate.triggered.connect(self.rotateImage)
         self.loadFiles()
 
         # Variation
@@ -151,6 +175,50 @@ class ImageWindow(QMainWindow):
             self.bSrcFile.hide()
         if kind == 3:
             self.bSrcFile.hide()
+
+    def rotateImage(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            col = selidxs[0].column()
+            imgfile = self.model.previews[col].title
+            nimgwin = NewImage(self, imgfile)
+            nimgwin.exec_()
+ 
+    def resizeImages(self):
+        dir = QFileDialog.getExistingDirectory(self, "Open Directory",
+            ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+        if dir is None or dir == "":
+            return
+        os.system(f'../../FaceTool/fpResizeImage.py -i {self.folder} -o {dir}')
+
+    def hflip(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            for sidx in selidxs:
+                col = sidx.column()
+                sfile = self.model.previews[col].title
+                nsfile = sfile + '.' + sfile[-3:]
+                os.system(f'convert {sfile} -flop {nsfile}')
+                os.system(f'mv {nsfile} {sfile}')
+                image = QImage(sfile)
+                item = preview(col, sfile, image)
+                self.model.previews[col] = item
+            self.model.layoutChanged.emit()
+
+    def deleteImages(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            for index in range(slen, 0, -1):
+                col = selidxs[index-1].column()
+                sfile = self.model.previews[col].title
+                del self.model.previews[col]
+                os.system(f'rm {sfile}')
+            self.model.layoutChanged.emit()
+            self.tview.resizeColumnsToContents()
+            self.tview.setCurrentIndex(QModelIndex())
 
     def copy(self):
         selidxs = self.tview.selectedIndexes()

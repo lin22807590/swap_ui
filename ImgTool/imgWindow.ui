@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1079</width>
-    <height>612</height>
+    <height>616</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -86,7 +86,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bMarkB">
+          <widget class="QPushButton" name="bResize">
            <property name="minimumSize">
             <size>
              <width>150</width>
@@ -94,14 +94,14 @@
             </size>
            </property>
            <property name="text">
-            <string>Mark B</string>
+            <string>Resize</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bSrcFile">
+          <widget class="QPushButton" name="bRembg">
            <property name="text">
-            <string>Set Source</string>
+            <string>RemBG</string>
            </property>
           </widget>
          </item>
@@ -123,28 +123,6 @@
           <widget class="QPushButton" name="bGPEN">
            <property name="text">
             <string>GPEN</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="bInterNum">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>60</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>60</width>
-             <height>16777215</height>
-            </size>
            </property>
           </widget>
          </item>
@@ -219,6 +197,7 @@
     <addaction name="action_GPen"/>
     <addaction name="action_Resize"/>
     <addaction name="action_Rotate"/>
+    <addaction name="actionRe_name_Files"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Tool"/>
@@ -266,6 +245,11 @@
   <action name="action_Resize">
    <property name="text">
     <string>&amp;Resize</string>
+   </property>
+  </action>
+  <action name="actionRe_name_Files">
+   <property name="text">
+    <string>Re&amp;name Files</string>
    </property>
   </action>
  </widget>
@@ -316,6 +300,22 @@
     <hint type="destinationlabel">
      <x>776</x>
      <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Resize</sender>
+   <signal>triggered()</signal>
+   <receiver>bResize</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>534</y>
     </hint>
    </hints>
   </connection>

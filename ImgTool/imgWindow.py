@@ -1,7 +1,7 @@
 import glob
 import math
-import os
-import re
+import os, datetime
+import re, shutil
 import sys
 from collections import namedtuple
 
@@ -9,7 +9,7 @@ from PyQt5 import uic, QtCore  # , QtWidgets
 from PyQt5.QtCore import QAbstractTableModel, Qt, QSize, QModelIndex
 from PyQt5.QtGui import QImage, QPixmap, QTransform, QPainter
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView, QStyledItemDelegate
-from PyQt5.QtWidgets import QVBoxLayout, QFileDialog, QDialog, QMessageBox
+from PyQt5.QtWidgets import QVBoxLayout, QFileDialog, QDialog, QMessageBox, QInputDialog
 # Create a custom namedtuple class to hold our data.
 preview = namedtuple("preview", "id title image")
 
@@ -160,6 +160,7 @@ class ImageWindow(QMainWindow):
         self.tview.setGridStyle(Qt.NoPen)
         self.infoSize = "0x0"
         self.imgbuf = None
+        self.ctrl = False
 
         mw, mh = self.width(), self.height()
         self.delegate = PreviewDelegate(mh, self.cols)
@@ -178,25 +179,17 @@ class ImageWindow(QMainWindow):
         # self.imgOffset.valueChanged.connect(self.offsetChanged)
         # self.imgOffset.sliderReleased.connect(self.offsetReleased)
         self.bMarkA.clicked.connect(self.setMarkA)
-        self.bMarkB.clicked.connect(self.setMarkB)
         self.bInterpolate.clicked.connect(self.interpolation)
         self.tview.clicked.connect(self.imgClicked)
         self.bCopy.clicked.connect(self.copy)
-        self.action_Delete.triggered.connect(self.deleteImages)
-        self.action_Resize.triggered.connect(self.resizeImages)
+        self.action_Delete.triggered.connect(self.deleteImage)
+        self.bResize.clicked.connect(self.resizeImage)
         self.bHFlip.clicked.connect(self.hflip)
         self.action_Rotate.triggered.connect(self.rotateImage)
         self.bGPEN.clicked.connect(self.GPEN)
+        self.bRembg.clicked.connect(self.rembg)
+        self.actionRe_name_Files.triggered.connect(self.renameFiles)
         self.loadFiles()
-
-        # Variation
-        self.kind = kind
-        if kind == 1:  # Src
-            self.bSrcFile.clicked.connect(self.setSrcFile)
-        if kind == 2:  # Drive
-            self.bSrcFile.hide()
-        if kind == 3:
-            self.bSrcFile.hide()
 
     def GPEN(self):
         dir = QFileDialog.getExistingDirectory(self, "Open Directory",
@@ -217,14 +210,25 @@ class ImageWindow(QMainWindow):
                 self.model.previews[col] = item
                 nimgwin.img.save(imgfile, imgfile[-3:])
                 self.model.layoutChanged.emit()
-
  
-    def resizeImages(self):
-        dir = QFileDialog.getExistingDirectory(self, "Open Directory",
-            ".", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
-        if dir is None or dir == "":
-            return
-        os.system(f'../../FaceTool/fpResizeImage.py -i {self.folder} -o {dir}')
+    def resizeImage(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            ratio, ok = QInputDialog.getDouble(self, 'Ratio', 
+                'Enter the ratio number:',
+                value=0.45, min=0.3, max=0.7, decimals=2, step=0.1)
+            if not ok: return
+            for sidx in selidxs:
+                col = sidx.column()
+                sfile = self.model.previews[col].title
+                nsfile = sfile + '.' + sfile[-3:]
+                os.system(f'fpResizeImage.py -i {sfile} -o {nsfile} -r {ratio}')
+                os.system(f'mv {nsfile} {sfile}')
+                image = QImage(sfile)
+                item = preview(col, sfile, image)
+                self.model.previews[col] = item
+            self.model.layoutChanged.emit()
 
     def hflip(self):
         selidxs = self.tview.selectedIndexes()
@@ -241,7 +245,7 @@ class ImageWindow(QMainWindow):
                 self.model.previews[col] = item
             self.model.layoutChanged.emit()
 
-    def deleteImages(self):
+    def deleteImage(self):
         selidxs = self.tview.selectedIndexes()
         slen = len(selidxs)
         if slen > 0:
@@ -252,6 +256,30 @@ class ImageWindow(QMainWindow):
                 os.system(f'rm {sfile}')
                 self.decrease()
             self.tview.setCurrentIndex(QModelIndex())
+        mw, mh = self.width(), self.height()
+        self.delegate.setParas(mh, len(self.model.previews))
+        self.model.setCols(len(self.model.previews))
+        self.model.layoutChanged.emit()
+        self.tview.resizeRowsToContents()
+        self.tview.resizeColumnsToContents()
+
+    def renameFiles(self):
+        nums, ok = QInputDialog.getInt(self, 'Rename Files', 
+            'Start number for image files:', value=1, min=1, max=10000, step=1)
+        if not ok: return
+        bfname = 'image_'
+        mlen = len(self.model.previews)
+        for i,item in enumerate(self.model.previews):
+            if item.title[-3:] == 'jpg':
+                print(f'convert {item.title} {item.title[:-3]}png')
+                os.system(f'convert {item.title} {item.title[:-3]}png')
+                os.system(f'rm {item.title}')
+            shutil.copyfile(f'{item.title[:-3]}png', f'{self.folder}/xxx{bfname}{i+nums:04d}.png')
+            os.system(f'rm {item.title[:-3]}png')
+        for i in range(nums, nums+mlen):
+            shutil.move(f'{self.folder}/xxx{bfname}{i:04d}.png',
+                f'{self.folder}/{bfname}{i:04d}.png')
+        self.loadFiles()
 
     def copy(self):
         selidxs = self.tview.selectedIndexes()
@@ -267,32 +295,43 @@ class ImageWindow(QMainWindow):
                 os.system(f"cp {tfile} {nfile}")
 
     def interpolation(self):
-        if hasattr(self, 'markA') and hasattr(self, 'markA'):
-            numa, numb = 0, 0
-            restr = f".*?(\d+).*"
-            ss = re.match(restr, os.path.basename(self.markA))
-            if ss:
-                numa = int(ss.group(1))
-            ss = re.match(restr, os.path.basename(self.markB))
-            if ss:
-                numb = int(ss.group(1))
-            if numa > 0 and numb > 0:
-                if self.bInterNum.text() != '' and self.bInterNum.text() != '0':
-                    numb = numa + int(self.bInterNum.text())
-                cmdstr = f"../../FaceTool/fpInterpolationVlc.py -a {self.markA} -b {self.markB}"
-                cmdstr += f" -s {numa} -e {numb}"
-                cmdstr += f" -o ./tempinter"
-                try:
-                    print(cmdstr)
-                    os.system(cmdstr)
-                    reply = QMessageBox.information(self, 'Copy Files', 'Do you want to copy files?',
-                        QMessageBox.Ok | QMessageBox.Close, QMessageBox.Close)
-                    if reply == QMessageBox.Ok:
-                        os.system(f'cp ./tempinter/*.png {self.folder}/')
-                        os.system(f'cp ./tempinter/*.jpg {self.folder}/')
-                        self.loadFiles()
-                except:
-                    pass
+        selidxs = self.tview.selectedIndexes()
+        checkValid = True
+        if len(selidxs) != 2: checkValid = False
+        else:
+            idxa, idxb = selidxs[:2]
+            if idxa.column() > idxb.column(): idxa, idxb = idxb, idxa
+            if idxa.column() + 1 != idxb.column(): checkValid = False
+        if not checkValid:
+            QMessageBox.information(self, 'Interpolation',
+                'Currently interpolation only support two continuous selected frames',
+                QMessageBox.Ok | QMessageBox.Close, QMessageBox.Close)
+            return
+        
+        nums, ok = QInputDialog.getInt(self, 'Interpolation', 
+            'How many frames to interpolate:',
+            value=3, min=1, max=127, step=1)
+        if not ok: return
+        filea = self.model.previews[idxa.column()].title
+        fileb = self.model.previews[idxb.column()].title
+        cmdstr = f"fpFILM.py -a {filea} -b {fileb} -n {nums}"
+        os.system(cmdstr)
+
+        rhead = int(datetime.datetime.now().timestamp())
+        tempdir = 'temp/interpolated_frames'
+        rhead = int(datetime.datetime.now().timestamp())
+        for i in range(1, nums+1):
+            file = f'{tempdir}/frame_{i:03d}.png'
+            nfile = f'{self.folder}/{rhead+i}.png'
+            os.system(f'cp {file} {nfile}')
+            pitem = preview(rhead+i, nfile, QImage(nfile))
+            self.model.previews.insert(idxa.column()+i, pitem)
+        mw, mh = self.width(), self.height()
+        self.delegate.setParas(mh, len(self.model.previews))
+        self.model.setCols(len(self.model.previews))
+        self.model.layoutChanged.emit()
+        self.tview.resizeRowsToContents()
+        self.tview.resizeColumnsToContents()
 
     def setMarkA(self):
         if hasattr(self, 'clickFile'):
@@ -307,24 +346,22 @@ class ImageWindow(QMainWindow):
                 self.up.markA = markFile
                 self.up.tMarkA.setText(f"MarkA = {markFile}")
 
-    def setMarkB(self):
-        if hasattr(self, 'clickFile'):
-            self.markB = self.clickFile
-            markFile = os.path.basename(self.clickFile)
-            self.infoMarkB = f"B={markFile}"
-            infoMsg = [self.infoSize]
-            if hasattr(self, "infoMarkA"):
-                infoMsg.append(self.infoMarkA)
-            infoMsg.append(self.infoMarkB)
-            self.info.setText("   ".join(infoMsg))
-            if self.kind == 2:
-                self.up.markB = markFile
-                self.up.tMarkB.setText(f"MarkB = {markFile}")
+    def rembg(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            for sidx in selidxs:
+                col = sidx.column()
+                sfile = self.model.previews[col].title
+                nsfile = sfile + '.' + sfile[-3:]
+                os.system(f'fpRemBg.py {sfile} {nsfile}')
+                os.system(f'mv {nsfile} {sfile}')
+                image = QImage(sfile)
+                item = preview(col, sfile, image)
+                self.model.previews[col] = item
+            self.model.layoutChanged.emit()
 
-    def setSrcFile(self):
-        if hasattr(self, 'clickFile'):
-            self.up.srcFile = self.clickFile
-            self.up.tSrcFile.setText(self.clickFile)
+
 
     def imgClicked(self, index):
         offset = index.row() * self.cols + index.column()
@@ -392,6 +429,35 @@ class ImageWindow(QMainWindow):
         self.delegate.setParas(mh, self.cols)
         self.tview.resizeRowsToContents()
         self.tview.resizeColumnsToContents()
+
+    def keyPressEvent(self, k):
+        if k.key() == 16777249: self.ctrl = True
+
+    def keyReleaseEvent(self, k):
+        if self.ctrl and k.key() in [16777234, 16777236]: # left, right
+            selidxs = self.tview.selectedIndexes()
+            slen = len(selidxs)
+            if slen != 1: return
+            sidx = selidxs[0]
+            col = sidx.column()
+            if k.key() == 16777234: # left
+                if col == 0: return
+                t = self.model.previews[col]
+                self.model.previews[col] = self.model.previews[col-1]
+                self.model.previews[col-1] = t
+                prev_index = self.model.index(0, col-1)
+                self.tview.clearSelection()
+                self.tview.setCurrentIndex(prev_index)
+            elif k.key() == 16777236: # right
+                if col == len(self.model.previews)-1: return
+                t = self.model.previews[col]
+                self.model.previews[col] = self.model.previews[col+1]
+                self.model.previews[col+1] = t
+                next_index = self.model.index(0, col+1)
+                self.tview.clearSelection()
+                self.tview.setCurrentIndex(next_index)
+            self.model.layoutChanged.emit()
+        if k.key() == 16777249: self.ctrl = False
 
 
 if __name__ == "__main__":

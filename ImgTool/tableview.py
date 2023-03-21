@@ -97,7 +97,6 @@ class FR_TableView(QTableView):
         self.parent = parent
         self.doubleClicked.connect(self.imgDblClicked)
 
-
     def imgDblClicked(self, index):
         if index.row()==0: # Drive
             dir = QFileDialog.getExistingDirectory(self, "Open Directory",
@@ -151,10 +150,12 @@ class FR_TableView(QTableView):
             self.selected = idxs[0]
 
     def keyReleaseEvent(self, k):
-        if k.key() == 16777223 and self.selected.row():
+        if k.key() == 16777223 and self.selected.row(): # Delete
             self.model().setData(self.selected, None, Qt.EditRole)
         if k.text() == 'x': quit()
         if k.text() == 'm': self.doMoab()
+        if k.text() == 'f': self.doInterpolation()
+        if k.text() == 'g': self.doGPEN()
         if k.text() == 'c':
             if not os.path.exists('./result'):
                 os.makedirs('./result')
@@ -165,18 +166,90 @@ class FR_TableView(QTableView):
         if k.text() == 'r':
             os.system('fpPlaydir.py -i result')
 
+    def doGPEN(self):
+        idxs = self.selectedIndexes()
+        if os.path.exists('gtemp'):
+            os.system('rm -rf gtemp')
+        os.makedirs('gtemp')
+        for idx in idxs:
+            sitem = self.model().sources[idx.column()]
+            os.system(f'cp {sitem.title} gtemp/')
+        os.system(f'fpGpenDir.py -i gtemp -o output')
+        for idx in idxs:
+            sitem = self.model().sources[idx.column()]
+            sfname = os.path.basename(sitem.title)
+            filename = f'output/{sfname[:-4]}_GPEN{sfname[-4:]}'
+            image = QImage(filename)
+            item = timage(idx.column(), filename, image)
+            self.model().sources[idx.column()] = item
+            self.model().layoutChanged.emit()
+
+    def doInterpolation(self):
+        idxs = self.selectedIndexes()
+        if len(idxs) != 2: return
+        idxa, idxb, drv1, drv2, start, end = self.getAB(source=True)
+        cmd = f'fpFILM.py -a {drv1.title} -b {drv2.title} -n {end-start}'
+        cmd += ' -o output'
+        os.system(cmd)
+        tempdir = 'temp/interpolated_frames'
+        for i, col in enumerate(range(idxa.column()+1, idxb.column())):
+            filename = f'{tempdir}/frame_{1+i:03d}.png'
+            print("FN", filename)
+            image = QImage(filename)
+            item = timage(col, filename, image)
+            # self.model().setData(index, item, Qt.EditRole)
+            self.model().sources[col] = item
+            self.model().layoutChanged.emit()
+            # self.update()
+
+        # rhead = int(datetime.datetime.now().timestamp())
+        # rhead = int(datetime.datetime.now().timestamp())
+        # for i in range(1, nums+1):
+        #     file = f'{tempdir}/frame_{i:03d}.png'
+        #     nfile = f'{self.folder}/{rhead+i}.png'
+        #     os.system(f'cp {file} {nfile}')
+        #     pitem = preview(rhead+i, nfile, QImage(nfile))
+        #     self.model.previews.insert(idxa.column()+i, pitem)
+        # mw, mh = self.width(), self.height()
+        # self.delegate.setParas(mh, len(self.model.previews))
+        # self.model.setCols(len(self.model.previews))
+        # self.model.layoutChanged.emit()
+        # self.tview.resizeRowsToContents()
+        # self.tview.resizeColumnsToContents()
+
+    def getAB(self, source=False):
+        idxs = self.selectedIndexes()
+        if len(idxs) != 2: return
+        idxa, idxb = idxs
+        if idxa.column() > idxb.column(): idxa, idxb = idxb, idxa
+        if source:
+            drv1 = self.model().sources[idxa.column()]
+            drv2 = self.model().sources[idxb.column()]
+            start, end = idxa.column(), idxb.column()
+        else:
+            drv1 = self.model().drives[idxa.column()]
+            drv2 = self.model().drives[idxb.column()]
+            m = re.search(r'\d+', os.path.basename(drv1.title))
+            start = int(m.group(0))
+            m = re.search(r'\d+', os.path.basename(drv2.title))
+            end = int(m.group(0))
+        return idxa, idxb, drv1, drv2, start, end
+
     def doMoab(self):
-        srcs = []
-        for src in self.model().sources:
-            if src:
-                srcs.append(src)
-                if len(srcs) == 2: break
-        drv1 = self.model().drives[srcs[0].id]
-        drv2 = self.model().drives[srcs[1].id]
-        m = re.search(r'\d+', os.path.basename(drv1.title))
-        start = int(m.group(0))
-        m = re.search(r'\d+', os.path.basename(drv2.title))
-        end = int(m.group(0))
-        cmd = f'fpMoab.py -a {srcs[0].title} -b {srcs[1].title} '
+        idxs = self.selectedIndexes()
+        if len(idxs) != 2: return
+        idxa, idxb, drv1, drv2, start, end = self.getAB()
+        sitema = self.model().sources[idxa.column()]
+        sitemb = self.model().sources[idxb.column()]
+        cmd = f'fpMoab.py -a {sitema.title} -b {sitemb.title} '
         cmd += f'-d {self.drvDir} -s {start} -e {end}'
         os.system(cmd)
+        for i, col in enumerate(range(idxa.column()+1, idxb.column())):
+            filename = f'output/image_{start+1+i:04d}{drv1.title[-4:]}'
+            print(filename)
+            image = QImage(filename)
+            item = timage(col, filename, image)
+            # self.model().setData(index, item, Qt.EditRole)
+            self.model().sources[col] = item
+            self.model().layoutChanged.emit()
+            # self.update()

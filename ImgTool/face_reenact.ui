@@ -66,6 +66,8 @@
     </property>
     <addaction name="action_Source_Images"/>
     <addaction name="action_Moab"/>
+    <addaction name="actionFilm"/>
+    <addaction name="action_Gpen"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Tools"/>
@@ -84,6 +86,16 @@
   <action name="action_Moab">
    <property name="text">
     <string>&amp;Moab</string>
+   </property>
+  </action>
+  <action name="actionFilm">
+   <property name="text">
+    <string>F&amp;ilm</string>
+   </property>
+  </action>
+  <action name="action_Gpen">
+   <property name="text">
+    <string>&amp;Gpen</string>
    </property>
   </action>
  </widget>

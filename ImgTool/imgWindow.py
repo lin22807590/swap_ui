@@ -126,6 +126,11 @@ class PreviewModel(QAbstractTableModel):
         # n_items = len(self.previews)
         # return math.ceil(n_items / self.cols)
 
+    def headerData(self, section, orientation, role):
+        if role == Qt.DisplayRole:
+            if orientation == Qt.Horizontal: return section+1
+            if orientation == Qt.Vertical:
+                return 'S'
 class MyTableView(QTableView):
     def __init__(self, parent):
         super().__init__(parent)
@@ -155,7 +160,7 @@ class ImageWindow(QMainWindow):
         self.setWindowTitle(self.folder)
         self.cols = 30
         self.tview = MyTableView(self)
-        self.tview.horizontalHeader().hide()
+        # self.tview.horizontalHeader().hide()
         self.tview.verticalHeader().hide()
         self.tview.setGridStyle(Qt.NoPen)
         self.infoSize = "0x0"
@@ -178,7 +183,7 @@ class ImageWindow(QMainWindow):
         # self.bOffset.clicked.connect(self.setOffset)
         # self.imgOffset.valueChanged.connect(self.offsetChanged)
         # self.imgOffset.sliderReleased.connect(self.offsetReleased)
-        self.bMarkA.clicked.connect(self.setMarkA)
+        self.bHead.clicked.connect(self.head)
         self.bInterpolate.clicked.connect(self.interpolation)
         self.tview.clicked.connect(self.imgClicked)
         self.bCopy.clicked.connect(self.copy)
@@ -189,6 +194,7 @@ class ImageWindow(QMainWindow):
         self.bGPEN.clicked.connect(self.GPEN)
         self.bRembg.clicked.connect(self.rembg)
         self.actionRe_name_Files.triggered.connect(self.renameFiles)
+        self.actionReload_Files.triggered.connect(self.loadFiles)
         self.loadFiles()
 
     def GPEN(self):
@@ -216,8 +222,8 @@ class ImageWindow(QMainWindow):
         slen = len(selidxs)
         if slen > 0:
             ratio, ok = QInputDialog.getDouble(self, 'Ratio', 
-                'Enter the ratio number:',
-                value=0.45, min=0.3, max=0.7, decimals=2, step=0.1)
+                'Enter the ratio number',
+                value=0.45, min=0.3, max=0.7, decimals=2)
             if not ok: return
             for sidx in selidxs:
                 col = sidx.column()
@@ -333,19 +339,6 @@ class ImageWindow(QMainWindow):
         self.tview.resizeRowsToContents()
         self.tview.resizeColumnsToContents()
 
-    def setMarkA(self):
-        if hasattr(self, 'clickFile'):
-            self.markA = self.clickFile
-            markFile = os.path.basename(self.clickFile)
-            self.infoMarkA = f"A={markFile}"
-            infoMsg = [self.infoSize, self.infoMarkA]
-            if hasattr(self, "infoMarkB"):
-                infoMsg.append(self.infoMarkB)
-            self.info.setText("   ".join(infoMsg))
-            if self.kind == 2:
-                self.up.markA = markFile
-                self.up.tMarkA.setText(f"MarkA = {markFile}")
-
     def rembg(self):
         selidxs = self.tview.selectedIndexes()
         slen = len(selidxs)
@@ -361,6 +354,20 @@ class ImageWindow(QMainWindow):
                 self.model.previews[col] = item
             self.model.layoutChanged.emit()
 
+    def head(self):
+        selidxs = self.tview.selectedIndexes()
+        slen = len(selidxs)
+        if slen > 0:
+            for sidx in selidxs:
+                col = sidx.column()
+                sfile = self.model.previews[col].title
+                nsfile = sfile + '.' + sfile[-3:]
+                os.system(f'fpExtractHead.py -i {sfile} -o {nsfile}')
+                os.system(f'mv {nsfile} {sfile}')
+                image = QImage(sfile)
+                item = preview(col, sfile, image)
+                self.model.previews[col] = item
+            self.model.layoutChanged.emit()
 
 
     def imgClicked(self, index):
